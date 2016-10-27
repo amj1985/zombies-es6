@@ -1,0 +1,32 @@
+{
+  "name": "zombies-es6",
+  "version": "1.0.0",
+  "description": "Formacion de ECMA6",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.7"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-uglify": "^2.0.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-stream": "^3.2.0"
+  },
+  "scripts": {
+    "test": "testgame"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amj1985/Pasiona_Formacion/zombies-es6"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ccoenraets/Pasiona_Formacion/zombies-es6/issues"
+  },
+  "homepage": "https://github.com/ccoenraets/Pasiona_Formacion#readme"
+}
