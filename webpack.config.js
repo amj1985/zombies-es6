@@ -1,7 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
  module.exports = {
-     entry: './js/app.js',
+     entry: './src/zombiesMain.js',
      output: {
          path: path.resolve(__dirname, 'build'),
          filename: 'app.bundle.js'

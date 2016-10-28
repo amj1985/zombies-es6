@@ -9,7 +9,7 @@ var stream = require('webpack-stream');
 gulp.task('default', function() {
   return gutil.log('Gulp is running!')
 });
-gulp.task("run-zombies", function(callback) {
+gulp.task("webpack-dev-server", function(callback) {
 
     var mConfig = Object.create(webpackConfig);
     mConfig.devtool = "eval";
