@@ -9,14 +9,17 @@ var stream = require('webpack-stream');
 gulp.task('default', function() {
   return gutil.log('Gulp is running!')
 });
-gulp.task("webpack-dev-server", function(callback) {
-    // Start a webpack-dev-server
-    var compiler = webpack({
-        // configuration
-    });
+gulp.task("run-zombies", function(callback) {
 
-    new WebpackDevServer(compiler, {
-    }).listen(8080, "localhost", function(err) {
+    var mConfig = Object.create(webpackConfig);
+    mConfig.devtool = "eval";
+    mConfig.debug = true;
+
+    new WebpackDevServer(webpack(mConfig), {
+      publicPath : "/" + mConfig.output.publicPath,
+      stats: {
+        colors : true
+      }}).listen(8080, "localhost", function(err) {
         if(err) throw new gutil.PluginError("webpack-dev-server", err);
         gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
     });
