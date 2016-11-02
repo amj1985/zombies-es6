@@ -10,13 +10,11 @@ gulp.task('default', function() {
   return gutil.log('Gulp is running!')
 });
 gulp.task("webpack-dev-server", function(callback) {
-
     var mConfig = Object.create(webpackConfig);
     mConfig.devtool = "eval";
     mConfig.debug = true;
-
     new WebpackDevServer(webpack(mConfig), {
-      publicPath : "/" + mConfig.output.publicPath,
+      publicPath : "/build/js/",
       stats: {
         colors : true
       }}).listen(8080, "localhost", function(err) {
