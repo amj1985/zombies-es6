@@ -1,6 +1,5 @@
 var path = require('path')
 var webpack = require('webpack')
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 // Phaser webpack config
 var phaserModule = path.join(__dirname, '/node_modules/phaser/')
@@ -9,7 +8,7 @@ var pixi = path.join(phaserModule, 'build/custom/pixi.js')
 var p2 = path.join(phaserModule, 'build/custom/p2.js')
 
 var definePlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true'))
+  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'false'))
 })
 
 module.exports = {
@@ -19,27 +18,30 @@ module.exports = {
       path.resolve(__dirname, 'src/main.js')
     ]
   },
-  devtool: 'source-map',
   output: {
-    pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
     publicPath: './dist/',
     filename: 'bundle.js'
   },
-  watch: true,
   plugins: [
     definePlugin,
-    new BrowserSyncPlugin({
-      host: process.env.IP || 'localhost',
-      port: process.env.PORT || 3000,
-      open: false,
-      server: {
-        baseDir: ['./', './build']
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.optimize.UglifyJsPlugin({
+      drop_console: true,
+      minimize: true,
+      output: {
+        comments: false
+      },
+      compress: {
+        warnings: false
       }
-    })
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin()
   ],
   module: {
     loaders: [
+      { test: /\.json$/, loader: 'json' },
       { test: /\.js$/, loader: 'babel', include: path.join(__dirname, 'src') },
       { test: /pixi\.js/, loader: 'expose?PIXI' },
       { test: /phaser-split\.js$/, loader: 'expose?Phaser' },
