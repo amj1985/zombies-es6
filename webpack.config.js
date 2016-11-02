@@ -8,10 +8,6 @@ var phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
 var pixi = path.join(phaserModule, 'build/custom/pixi.js')
 var p2 = path.join(phaserModule, 'build/custom/p2.js')
 
-var definePlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true'))
-})
-
 module.exports = {
   entry: {
     app: [
@@ -27,17 +23,6 @@ module.exports = {
     filename: 'bundle.js'
   },
   watch: true,
-  plugins: [
-    definePlugin,
-    new BrowserSyncPlugin({
-      host: process.env.IP || 'localhost',
-      port: process.env.PORT || 3000,
-      open: false,
-      server: {
-        baseDir: ['./', './build']
-      }
-    })
-  ],
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel', include: path.join(__dirname, 'src') },
