@@ -7,21 +7,26 @@ class Game extends Phaser.Game {
 
     constructor() {
         super(800, 600, Phaser.AUTO, 'content', null);
-                debugger;
-        this.config = Object.assign({}, new Config());
-        this.__preload()
-            .__create();
-    }
-    __preload() {
-      return new Promise((resolve) => {
-        resolve();
-        return this;
-      });
+        this.__initializeConfig()
+        .__registerAtlases()
+        .__initializeSplashScreen()
+        .__initializeSceneries();
+
 
     }
-    __create() {
-        return this;
+    __initializeConfig() {
+      this.config = Object.assign({}, new Config());
+      return this;
+    }
+    __registerAtlases() {
+      return this;
+    }
+    __initializeSplashScreen() {
+      return this;
+    }
+    __initializeSceneries() {
+      return this;
     }
 }
 
-window.game = new Game()
+window.onLoad = () => new Game()
