@@ -1,4 +1,4 @@
-export default function () {
+module.exports = () => {
     return {
         startBackground: {
             'type': 'image',
@@ -26,19 +26,19 @@ export default function () {
             'overwrite': false
         },
         bangkok: {
-          'type': 'image',
-          'url': require('../../assets/shared/5.gif'),
-          'overwrite': false
+            'type': 'image',
+            'url': require('../../assets/shared/5.gif'),
+            'overwrite': false
         },
         road: {
-          'type': 'image',
-          'url': require('../../assets/shared/6.gif'),
-          'overwrite': false
-        }
+            'type': 'image',
+            'url': require('../../assets/shared/6.gif'),
+            'overwrite': false
+        },
         graveyard: {
-          'type': 'image',
-          'url': require('../../assets/shared/7.png'),
-          'overwrite': false
+            'type': 'image',
+            'url': require('../../assets/shared/7.png'),
+            'overwrite': false
         }
-    };
-}
+    }
+};

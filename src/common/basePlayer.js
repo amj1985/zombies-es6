@@ -17,6 +17,9 @@ export default class BasePlayer extends Phaser.Sprite(){
 
     }
     __onEat(){
-      
+
+    }
+    __revive(){
+
     }
 }
