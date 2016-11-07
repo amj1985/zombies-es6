@@ -1,18 +1,22 @@
 export default function() {
   return {
     background: 'startBackground',
-    text: 'Start playing',
+    textInfo: 'the apocalypse has begun \n              are you ready ?',
+    blackMask: 'transitionBackground',
+    textButton: 'Play',
+    textInfoX: 460,
+    textInfoY: 200,
     style: {
-        font: '40px Karmatic Arcade',
-        strokeThickness: 4,
+        font: '60px Karmatic Arcade',
+        strokeThickness: 1,
         stroke: '#210474',
-        fill: [{
-          color: '#02ff6a',
-          point: 0
-        }, {
-          color: '#018132',
-          point: 1
-        }]
+        fill: '#ffffff'
+    },
+    textButtonStyle: {
+      font: '32px Karmatic Arcade',
+      strokeThickness: 1,
+      stroke: '#210474',
+      fill: '#ffffff'
     }
  };
 }

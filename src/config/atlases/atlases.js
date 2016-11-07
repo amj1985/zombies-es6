@@ -1,4 +1,4 @@
-module.exports = ()=> {
+module.exports = () => {
     return {
 
         'platforms': {
@@ -11,10 +11,15 @@ module.exports = ()=> {
             format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
             url: require('../../assets/shared/scavenger.png')
         },
+        'buttonPlay': {
+          data: require('../../assets/atlases/buttons.json'),
+          format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
+          url: require('../../assets/shared/buttons.png')
+        },
         'zombie': {
             data: require('../../assets/atlases/zombie.json'),
             format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
             url: require('../../assets/shared/zombie.png')
-        }
+        },
     }
 };

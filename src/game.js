@@ -9,6 +9,7 @@ class Game extends Phaser.Game {
 
     constructor() {
         super(1920, 1080, Phaser.AUTO, 'content');
+        console.clear();
         this.__initializeStates();
     }
 
@@ -23,5 +24,4 @@ class Game extends Phaser.Game {
         return this;
     }
 }
-
 window.onload = () => new Game();

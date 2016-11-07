@@ -1,0 +1,20 @@
+{
+"frames": {
+	"button": {
+		"frame": {"x":0, "y":33, "w":128, "h":32},
+		"spriteSourceSize": {"x":0,"y":0,"w":128,"h":32},
+		"sourceSize": {"w":128,"h":32}
+	},
+	"button_on": {
+		"frame": {"x":0, "y":0, "w":128, "h":32},
+		"spriteSourceSize": {"x":0,"y":0,"w":128,"h":32},
+		"sourceSize": {"w":128,"h":32}
+	}
+
+},
+"meta": {
+	"image": "buttons.png",
+	"size": {"w": 129, "h": 66},
+	"scale": "1"
+}
+}
