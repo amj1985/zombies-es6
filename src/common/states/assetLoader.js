@@ -26,7 +26,7 @@ class AssetLoader extends Phaser.State {
     __loadAtlases() {
         for (let atlasName in this.config.atlases) {
             let atlas = this.config.atlases[atlasName];
-            this.game.load.image(atlasName, atlas.url, null, atlas.data, atlas.format);
+            this.game.load.atlas(atlasName, atlas.url, null, atlas.data, atlas.format);
         }
         return this;
     }

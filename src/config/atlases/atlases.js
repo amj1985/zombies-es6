@@ -12,9 +12,9 @@ module.exports = () => {
             url: require('../../assets/shared/scavenger.png')
         },
         'buttonPlay': {
-          data: require('../../assets/atlases/buttons.json'),
-          format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
-          url: require('../../assets/shared/buttons.png')
+            data: require('../../assets/atlases/buttons.json'),
+            format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
+            url: require('../../assets/shared/buttons.png')
         },
         'zombie': {
             data: require('../../assets/atlases/zombie.json'),

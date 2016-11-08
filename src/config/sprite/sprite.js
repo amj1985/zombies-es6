@@ -40,16 +40,6 @@ module.exports = () => {
             'url': require('../../assets/shared/7.png'),
             'overwrite': false
         },
-        button: {
-          'type': 'image',
-          'url': require('../../assets/shared/button.png'),
-          'overwrite': false
-        },
-        button_on: {
-          'type': 'image',
-          'url': require('../../assets/shared/button_on.png'),
-          'overwrite': false
-        },
         transitionBackground: {
           'type': 'image',
           'url': require('../../assets/shared/transitionBackground.png'),

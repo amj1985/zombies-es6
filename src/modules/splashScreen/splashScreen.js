@@ -1,5 +1,5 @@
 import Config from './config.js';
-
+import BangkokStage from '../../modules/stages/bangkok/bangkokStage.js';
 export default class SplashScreen extends Phaser.Group {
     constructor(game) {
         super(game);
@@ -32,7 +32,7 @@ export default class SplashScreen extends Phaser.Group {
     }
     __initializeButton() {
         this.buttonPlay = this.add(new Phaser.Button(this.game, this.game.world.centerX, 600,
-            'button', this.__onPlay, this, 'button', 'button_on'));
+            'buttonPlay', this.__onPlay, this, 'button_on', 'button'));
         this.buttonPlay.scale.setTo(2, 2);
         this.buttonPlay.anchor.setTo(0.5, 0.5);
         this.buttonText = this.add(new Phaser.Text(this.game, this.game.world.centerX, 600, this.config.textButton, this.config.textButtonStyle));
@@ -41,7 +41,10 @@ export default class SplashScreen extends Phaser.Group {
     }
     __onPlay() {
         this.__animateFadeIn()
-        .then(() => console.log('fadeInComplete'));
+        .then(() => {
+          this.backGround.visible = false;
+          let stage = new BangkokStage(this.game, this.blackMask);
+        });
     }
     __animateFadeIn() {
       return new Promise((resolve) => {
