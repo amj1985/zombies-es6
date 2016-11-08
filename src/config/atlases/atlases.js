@@ -21,5 +21,10 @@ module.exports = () => {
             format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
             url: require('../../assets/shared/zombie.png')
         },
+        'explosion': {
+          data: require('../../assets/atlases/explosion.json'),
+          format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
+          url: require('../../assets/shared/explosion.png')
+        }
     }
 };

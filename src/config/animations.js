@@ -45,6 +45,26 @@ module.exports = () => {
             loop: false,
             useNumericIndex: false
         }],
+        explosion: [{
+          name: 'explosion',
+          frames: [
+            'Explosion_01',
+            'Explosion_02',
+            'Explosion_03',
+            'Explosion_04',
+            'Explosion_05',
+            'Explosion_06',
+            'Explosion_07',
+            'Explosion_08',
+            'Explosion_09',
+            'Explosion_10',
+            'Explosion_11',
+            'Explosion_12'
+          ],
+          frameRate: 12,
+          loop: false,
+          useNumericIndex: false
+        }],
         zombie: [{
           name: 'rightIdle',
           frames: [
@@ -61,12 +81,12 @@ module.exports = () => {
       }, {
           name: 'leftIdle',
           frames: [
+              'Zombie9',
+              'Zombie10',
               'Zombie11',
               'Zombie12',
               'Zombie13',
-              'Zombie14',
-              'Zombie15',
-              'Zombie16'
+              'Zombie14'
           ],
           frameRate: 8,
           loop: true,
@@ -74,8 +94,8 @@ module.exports = () => {
       }, {
           name: 'leftAttack',
           frames: [
-              'Zombie20',
-              'Zombie19'
+              'Zombie15',
+              'Zombie16'
           ],
           frameRate: 12,
           loop: false,

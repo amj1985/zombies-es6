@@ -5,10 +5,15 @@ export default class Guy extends BasePlayer {
     constructor(game, config) {
         super(game, config.x, config.y, config.spriteSheet, config.frameName);
         this.__registerAnimations()
+            .__initializeHp()
             .__playBaseAnimation();
     }
     __registerAnimations() {
       super.registerAnimations(new Animations().guy);
+      return this;
+    }
+    __initializeHp(){
+      //this.hp = this.add(new Phaser.Sprite(()))
       return this;
     }
     __playBaseAnimation() {
@@ -41,10 +46,11 @@ export default class Guy extends BasePlayer {
         this.body.velocity.x = 0;
     }
     __onUpPress() {
+        if(this.body.touching.down && this.hitPlatfrom) this.body.velocity.y = -1200;
         console.log('up pressed');
     }
     __onAttack() {
-      let animation = this.isLookingAt === 'left' ? 'leftAttack' : 'rightAttack';
-      this.animations.play(animation);
+      this.isAttacking = true;
+      super.onAttack();
     }
 }

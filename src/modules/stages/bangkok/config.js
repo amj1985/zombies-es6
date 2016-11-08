@@ -3,10 +3,8 @@ export default function() {
         background: 'bangkok',
         blackMask: 'transitionBackground',
         textInfo: {
-            text: 'Bangkok Stage, Get ready !!',
-            finalText: 'GO',
-            x: 460,
-            y: 200,
+            textStage: 'STAGE 1 BANGKOK',
+            y: 100,
             style: {
                 font: '60px Karmatic Arcade',
                 strokeThickness: 1,
@@ -14,37 +12,69 @@ export default function() {
                 fill: '#ffffff'
             }
         },
+        explosion: {
+          x: -100,
+          y: -100,
+          spriteSheet: 'explosion',
+          frameName: 'Explosion_01'
+        },
         guy: {
-            x: 0,
-            y: 0,
+            x: -80,
+            y: 152,
+            offsetX: 100,
             spriteSheet: 'scavenger',
             frameName: 'scavenger4'
         },
         zombies: [{
-            x: 150,
-            y: 0,
+            x: 720,
+            y: 500,
+            time: 2000,
             spriteSheet: 'zombie',
-            frameName: 'Zombie1'
+            frameName: 'Zombie1',
+            tween: {
+                offsetY: 96,
+                x: 420
+            }
         }, {
-            x: 300,
-            y: 0,
+            x: 1100,
+            y: 750,
+            time: 2000,
             spriteSheet: 'zombie',
-            frameName: 'Zombie1'
+            frameName: 'Zombie1',
+            tween: {
+              offsetY: 96,
+              x: 800
+            }
         }, {
-            x: 450,
-            y: 0,
+            x: 1450,
+            y: 500,
+            time: 2000,
             spriteSheet: 'zombie',
-            frameName: 'Zombie1'
+            frameName: 'Zombie1',
+            tween: {
+              offsetY: 96,
+              x: 1150
+            }
         }, {
-            x: 600,
-            y: 0,
+            x: 1820,
+            y: 250,
+            time: 2000,
             spriteSheet: 'zombie',
-            frameName: 'Zombie1'
+            frameName: 'Zombie1',
+            tween: {
+              offsetY: 96,
+              x: 1520
+            }
         }, {
-            x: 850,
-            y: 0,
+            x: 1820,
+            y: 1000,
+            time: 7000,
             spriteSheet: 'zombie',
-            frameName: 'Zombie1'
+            frameName: 'Zombie1',
+            tween: {
+              offsetY: 96,
+              x: 0
+            }
         }],
         platforms: [{
             x: -50,
