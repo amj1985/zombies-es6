@@ -41,6 +41,9 @@ export default class BasePlayer extends Phaser.Sprite {
     getAttackAnimationPosition() {
         return this.isLookingAt === 'left' ? 'leftAttack' : 'rightAttack';
     }
+    __waitSomeSecondsPromiser(time, resolve) {
+        this.game.time.events.add(Phaser.Timer.SECOND * time, () => resolve(), this);
+    }
     moveToPosition(offset) {
         return new Promise((resolve) => {
             if (this.key === 'zombie') {
@@ -49,7 +52,7 @@ export default class BasePlayer extends Phaser.Sprite {
                         y: this.y - offset
                     }, 2000, Phaser.Easing.Linear.None, true)
                     .onComplete.add(() => {
-                       resolve();
+                        resolve();
                     }, this);
             } else {
                 this.game.add.tween(this)
@@ -61,13 +64,15 @@ export default class BasePlayer extends Phaser.Sprite {
         });
     }
     onAttack(attackAnimation, moveAnimation) {
-      let animation = this.getAttackAnimationPosition();
-      this.animations.play(animation)
-      .onComplete.add(() => {
-        this.isAttacking = false;
-        let moveAnimation = this.getIdleAnimationMove();
-        this.animations.play(moveAnimation);
-      });
+        let animation = this.getAttackAnimationPosition();
+        this.animations.play(animation)
+            .onComplete.add(() => {
+                if (this.key === 'scavenger') {
+                    this.isAttacking = false;
+                }
+                let moveAnimation = this.getIdleAnimationMove();
+                this.animations.play(moveAnimation);
+            });
     }
     __onDie() {
 

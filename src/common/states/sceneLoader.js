@@ -1,7 +1,7 @@
-import SplashScreen from '../../modules/splashScreen/splashScreen.js';
-import Config from '../../modules/splashScreen/config.js';
+import StartScene from '../../modules/startScene/startScene.js';
+import Config from '../../modules/startScene/config.js';
 
-class SplashLoader extends Phaser.State {
+class SceneLoader extends Phaser.State {
     /**
      * A.M: This function overrides the parent state function => preload.
      * @override
@@ -15,8 +15,8 @@ class SplashLoader extends Phaser.State {
         return this;
     }
     __initializeSplashScreen() {
-        this.splashScreen = new SplashScreen(this.game);
+        let startScene = new StartScene(this.game);
     }
 
 }
-export default SplashLoader;
+export default SceneLoader;

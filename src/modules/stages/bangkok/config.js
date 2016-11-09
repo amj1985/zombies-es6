@@ -2,6 +2,7 @@ export default function() {
     return {
         background: 'bangkok',
         blackMask: 'transitionBackground',
+        timeout: 10,
         textInfo: {
             textStage: 'STAGE 1 BANGKOK',
             y: 100,
@@ -12,11 +13,19 @@ export default function() {
                 fill: '#ffffff'
             }
         },
+        hearts: {
+          totalLifes: 8,
+          x:20,
+          y:20,
+          offset: 40,
+          spriteSheet: 'hearts',
+          frameName: 'heart-on'
+        },
         explosion: {
-          x: -100,
-          y: -100,
+          x: -1000,
+          y: -1000,
           spriteSheet: 'explosion',
-          frameName: 'Explosion_01'
+          frameName: null
         },
         guy: {
             x: -80,

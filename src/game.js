@@ -3,7 +3,7 @@ import 'p2';
 import Phaser from 'phaser';
 import GameLoader from './common/states/gameLoader.js';
 import AssetLoader from './common/states/assetLoader.js';
-import SplashLoader from './common/states/splashLoader.js';
+import SceneLoader from './common/states/sceneLoader.js';
 
 class Game extends Phaser.Game {
 
@@ -17,7 +17,7 @@ class Game extends Phaser.Game {
         return new Promise((resolve) => {
             this.state.add('Boot', GameLoader, false);
             this.state.add('Preload', AssetLoader, false);
-            this.state.add('Splash', SplashLoader, false);
+            this.state.add('Scene', SceneLoader, false);
             this.state.start('Boot');
             resolve();
         });

@@ -15,7 +15,12 @@ export default class Zombie extends BasePlayer {
         this.animations.play('rightIdle');
     }
     attack() {
+        this.isAttacking = true;
+        this.game.time.events.add(Phaser.Timer.SECOND, () => this._resetAttack(), this);
         super.onAttack();
+    }
+    _resetAttack() {
+      this.isAttacking = false;
     }
     animateZombieRoutine(position, time) {
         let actualX = this.x;
@@ -33,9 +38,6 @@ export default class Zombie extends BasePlayer {
     onKilled() {
         let animation = this.getAttackAnimationPosition();
         this.animations.play()
-    }
-    onAttack() {
-
     }
     __swapIdleAnimation() {
         return new Promise((resolve) => {

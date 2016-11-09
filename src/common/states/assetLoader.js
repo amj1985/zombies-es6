@@ -16,7 +16,7 @@ class AssetLoader extends Phaser.State {
      * @override
      */
     create() {
-        this.game.state.start("Splash");
+        this.game.state.start("Scene");
     }
 
     __initializeConfig() {

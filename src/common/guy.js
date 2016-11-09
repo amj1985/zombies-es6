@@ -5,15 +5,11 @@ export default class Guy extends BasePlayer {
     constructor(game, config) {
         super(game, config.x, config.y, config.spriteSheet, config.frameName);
         this.__registerAnimations()
-            .__initializeHp()
             .__playBaseAnimation();
+        this.isAttacking = false;
     }
     __registerAnimations() {
       super.registerAnimations(new Animations().guy);
-      return this;
-    }
-    __initializeHp(){
-      //this.hp = this.add(new Phaser.Sprite(()))
       return this;
     }
     __playBaseAnimation() {

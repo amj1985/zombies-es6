@@ -1,51 +1,68 @@
 import Config from './config.js';
 import BangkokStage from '../../modules/stages/bangkok/bangkokStage.js';
-export default class SplashScreen extends Phaser.Group {
+export default class StartScene extends Phaser.Group {
     constructor(game) {
         super(game);
         this.game = game;
-        this.__initialize();
+        this._initialize();
     }
-    __initialize() {
-        this.__initializeConfig()
-            .__initializeBackground()
-            .__initializeBlackMask()
-            .__initializeText()
-            .__initializeButton();
+    _initialize() {
+        this._initializeConfig()
+            ._initializeBackground()
+            ._initializeBlackMask()
+            ._initializeText()
+            ._initializeButton();
     }
-    __initializeConfig() {
+    _initializeConfig() {
         this.config = Object.assign({}, new Config());
         return this;
     }
-    __initializeBackground() {
+    _initializeBackground() {
         this.backGround = this.add(new Phaser.Sprite(this.game, 0, 0, this.config.background));
         return this;
     }
-    __initializeBlackMask() {
+    _initializeBlackMask() {
         this.blackMask = this.add(new Phaser.Sprite(this.game, 0, 0, this.config.blackMask));
         this.blackMask.alpha = 0;
         return this;
     }
-    __initializeText() {
+    _initializeText() {
         this.textInfo = this.add(new Phaser.Text(this.game, this.config.textInfoX, this.config.textInfoY, this.config.textInfo, this.config.style));
         return this;
     }
-    __initializeButton() {
+    _initializeButton() {
         this.buttonPlay = this.add(new Phaser.Button(this.game, this.game.world.centerX, 600,
-            'buttonPlay', this.__onPlay, this, 'button_on', 'button'));
+            'buttonPlay', this._onPlay, this, 'button_on', 'button'));
         this.buttonPlay.scale.setTo(2, 2);
         this.buttonPlay.anchor.setTo(0.5, 0.5);
         this.buttonText = this.add(new Phaser.Text(this.game, this.game.world.centerX, 600, this.config.textButton, this.config.textButtonStyle));
         this.buttonText.anchor.setTo(0.5, 0.5);
         return this;
     }
-    __onPlay() {
+    _onPlay() {
         this.__animateFadeIn()
-        .then(() => {
-          this.backGround.visible = false;
-          let stage = new BangkokStage(this.game, this.blackMask);
+        .then(() => this._bankgogStage())
+        .then(() => this._thailandStage())
+        .catch(() =>  {
+          debugger;
+            this._gameOver();
         });
     }
+    _gameOver(){
+
+    }
+    _bankgogStage(){
+      this.backGround.visible = false;
+      return new Promise((resolve, reject) => {
+        new BangkokStage(this.game, resolve, reject);
+      });
+    }
+    _thailandStage(){
+      return new Promise((resolve, reject) => {
+        new ThailandStage(this.game, resolve, reject);
+      });
+    }
+
     __animateFadeIn() {
       return new Promise((resolve) => {
         this.__hideUiElements();

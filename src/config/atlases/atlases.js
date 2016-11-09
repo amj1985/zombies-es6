@@ -1,6 +1,5 @@
 module.exports = () => {
     return {
-
         'platforms': {
             data: require('../../assets/atlases/platforms.json'),
             format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
@@ -20,6 +19,11 @@ module.exports = () => {
             data: require('../../assets/atlases/zombie.json'),
             format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
             url: require('../../assets/shared/zombie.png')
+        },
+        'hearts': {
+            data: require('../../assets/atlases/heart.json'),
+            format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
+            url: require('../../assets/shared/heart.png')
         },
         'explosion': {
           data: require('../../assets/atlases/explosion.json'),
