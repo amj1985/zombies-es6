@@ -14,6 +14,7 @@ export default class BaseStage extends Phaser.Group {
             this.game = game;
             this.zombies = [];
             this.totalLifes = 8;
+            this.isActive = true;
             this._initialize()
         }
         /**
@@ -82,13 +83,13 @@ export default class BaseStage extends Phaser.Group {
         /**
          * @function protected function that animate the textIntro character by character
          */
-    __animateTextIntro() {
+    __animateText(finalText) {
             return new Promise((resolve) => {
                 return Array.from(new Array(this.textSteps.length))
                     .reduce((previous) =>
                         previous
                         .then(() => this._incrementTitle(), this), Promise.resolve())
-                    .then(() => this.mainText.setText('START !!'))
+                    .then(() => this.mainText.setText(finalText))
                     .then(() => this.__waitSomeSecondsPromiser(1, resolve));
             });
         }
@@ -138,8 +139,11 @@ export default class BaseStage extends Phaser.Group {
          * @function protected method that initialize a new countdown
          */
     __initializeCountDown(time) {
+            this.stageTimeout = time !== undefined ? time : this.stageTimeout;
             return new Promise((resolve) => {
-                this.game.time.events.loop(Phaser.Timer.SECOND * time, () => this._onCountDownCallback(), this);
+                this.countDown = this.game.time.events
+                    .loop(Phaser.Timer.SECOND * this.stageTimeout, () =>
+                        this._onCountDownCallback(), this);
                 resolve();
             })
             return this;
@@ -148,10 +152,16 @@ export default class BaseStage extends Phaser.Group {
          * @function private method (callback) that reduce the totalLifes by one when is called
          */
     _onCountDownCallback() {
-            if (this.totalLifes > 0) {
+            if (this.totalLifes !== 0) {
                 this._reduceLifeByOne();
-            } else {
-                // TODO gameOver
+            } else if (this.isActive === true) {
+                this.isActive == false;
+                this._animateFadeIn()
+                    .then(() => this._endGame(this.config.textInfo.gameOver))
+                    .then(() => {
+                        this.visible = false
+                        this.rejector();
+                    });
             }
         }
         /**
@@ -212,6 +222,7 @@ export default class BaseStage extends Phaser.Group {
     _reduceLifeByOne() {
             if (this.totalLifes > 0) {
                 this.heartArray[this.totalLifes - 1].off();
+                this.totalLifes--;
             }
         }
         /**
@@ -221,19 +232,17 @@ export default class BaseStage extends Phaser.Group {
         if (this.guy.isAttacking) this._processGuyAttack(zombie);
         else this._processZombieAttack(zombie);
     }
-    _processGuyAttack(zombie) {
-            this.boomExplosion.playBoomAnimation(zombie.x, zombie.y);
-            zombie.destroy();
-            let index = this.zombies.indexOf(zombie);
-            this.zombies.splice(index, 1);
-            if (this.zombies.length === 0) {
-                this._animateFadeIn()
-                    .then(() => {
-                        this.visible = false;
-                        debugger;
-                        this.resolver();
-                    });
-            }
+    _endGame(message) {
+            return new Promise((resolve) => {
+                this.config.textInfo.startText = '';
+                this.bringToTop(this.mainText);
+                this.mainText.setText('');
+                this.mainText.y = this.game.world.centerY;
+                this.mainText.visible = true;
+                this.textSteps = Object.assign([], message);
+                this.__animateText()
+                    .then(() => this.__waitSomeSecondsPromiser(1, resolve));
+            });
         }
         /**
          * @function protected method extends from Phaser.Group that extends from Phaser.State
@@ -263,19 +272,36 @@ export default class BaseStage extends Phaser.Group {
         });
         return this;
     }
+    _processGuyAttack(zombie) {
+        this.boomExplosion.playBoomAnimation(zombie.x, zombie.y);
+        zombie.destroy();
+        let index = this.zombies.indexOf(zombie);
+        this.zombies.splice(index, 1);
+        if (this.zombies.length === 0) {
+            this._animateFadeIn()
+                .then(() => this._endGame(this.config.textInfo.endStage))
+                .then(() => {
+                    this.visible = false;
+                    this.resolver();
+                });
+        }
+    }
     _processZombieAttack(zombie) {
         if (!zombie.isAttacking) {
             zombie.attack();
             this._reduceLifeByOne();
-            this.totalLifes--;
-            this.game.time.events.remove(this.game.time.events[0]);
+            this.game.time.events.remove(this.countDown);
             this.__initializeCountDown();
             if (this.totalLifes === 0) {
-                this._animateFadeIn()
-                    .then(() => {
-                        this.visible = false;
-                        this.rejector();
-                    });
+                if (this.isActive) {
+                    this.isActive = false;
+                    this._animateFadeIn()
+                        .then(() => this._endGame(this.config.textInfo.gameOver))
+                        .then(() => {
+                            this.visible = false;
+                            this.rejector();
+                        });
+                }
             }
         }
     }

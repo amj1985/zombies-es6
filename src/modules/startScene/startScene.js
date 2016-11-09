@@ -1,5 +1,7 @@
 import Config from './config.js';
 import BangkokStage from '../../modules/stages/bangkok/bangkokStage.js';
+import ThailandStage from '../../modules/stages/thailand/thailandStage.js';
+
 export default class StartScene extends Phaser.Group {
     constructor(game) {
         super(game);
@@ -41,40 +43,41 @@ export default class StartScene extends Phaser.Group {
     }
     _onPlay() {
         this.__animateFadeIn()
-        .then(() => this._bankgogStage())
-        .then(() => this._thailandStage())
-        .catch(() =>  {
-          debugger;
-            this._gameOver();
-        });
+            .then(() => this._bankgogStage())
+            .then(() => this._thailandStage())
+            .catch(() => {
+                this._gameOver();
+            });
     }
-    _gameOver(){
+    _gameOver() {
 
     }
-    _bankgogStage(){
-      this.backGround.visible = false;
-      return new Promise((resolve, reject) => {
-        new BangkokStage(this.game, resolve, reject);
-      });
+    _bankgogStage() {
+        this.backGround.visible = false;
+        return new Promise((resolve, reject) => {
+            new BangkokStage(this.game, resolve, reject);
+        });
     }
-    _thailandStage(){
-      return new Promise((resolve, reject) => {
-        new ThailandStage(this.game, resolve, reject);
-      });
+    _thailandStage() {
+        return new Promise((resolve, reject) => {
+            new ThailandStage(this.game, resolve, reject);
+        });
     }
 
     __animateFadeIn() {
-      return new Promise((resolve) => {
-        this.__hideUiElements();
-        this.game.add.tween(this.blackMask)
-        .to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true)
-        .onComplete.add(() => resolve(), this);
-      });
+        return new Promise((resolve) => {
+            this.__hideUiElements();
+            this.game.add.tween(this.blackMask)
+                .to({
+                    alpha: 1
+                }, 2000, Phaser.Easing.Linear.None, true)
+                .onComplete.add(() => resolve(), this);
+        });
 
     }
-    __hideUiElements(){
-      this.buttonPlay.visible = false;
-      this.buttonText.visible = false;
-      this.textInfo.visible = false;
+    __hideUiElements() {
+        this.buttonPlay.visible = false;
+        this.buttonText.visible = false;
+        this.textInfo.visible = false;
     }
 }

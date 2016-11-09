@@ -69,7 +69,7 @@ export default class BangkokStage extends BaseStage {
     }
     __start() {
         this.__animatePlayerIn()
-            .then(() => this.__animateTextIntro())
+            .then(() => this.__animateText())
             .then(() => this.__animateZombiesIn())
             .then(() => this.__initializePhysics())
             .then(() => this.__animateZombiesRoutine())
@@ -103,8 +103,8 @@ export default class BangkokStage extends BaseStage {
         let offsetX = this.config.guy.offsetX;
         return super.__animatePlayerIn(offsetX);
     }
-
-    __animateTextIntro() {
-        return super.__animateTextIntro();
+    __animateText() {
+        let text = this.config.textInfo.startText;
+        return super.__animateText(text);
     }
 }

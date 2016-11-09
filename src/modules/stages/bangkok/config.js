@@ -5,6 +5,9 @@ export default function() {
         timeout: 10,
         textInfo: {
             textStage: 'STAGE 1 BANGKOK',
+            startText: 'START !!',
+            endStage: 'STAGE 1 SUCCESS !!',
+            gameOver: 'GAME OVER !!',
             y: 100,
             style: {
                 font: '60px Karmatic Arcade',
@@ -14,18 +17,18 @@ export default function() {
             }
         },
         hearts: {
-          totalLifes: 8,
-          x:20,
-          y:20,
-          offset: 40,
-          spriteSheet: 'hearts',
-          frameName: 'heart-on'
+            totalLifes: 8,
+            x: 20,
+            y: 20,
+            offset: 40,
+            spriteSheet: 'hearts',
+            frameName: 'heart-on'
         },
         explosion: {
-          x: -1000,
-          y: -1000,
-          spriteSheet: 'explosion',
-          frameName: null
+            x: -1000,
+            y: -1000,
+            spriteSheet: 'explosion',
+            frameName: null
         },
         guy: {
             x: -80,
@@ -51,8 +54,8 @@ export default function() {
             spriteSheet: 'zombie',
             frameName: 'Zombie1',
             tween: {
-              offsetY: 96,
-              x: 800
+                offsetY: 96,
+                x: 800
             }
         }, {
             x: 1450,
@@ -61,8 +64,8 @@ export default function() {
             spriteSheet: 'zombie',
             frameName: 'Zombie1',
             tween: {
-              offsetY: 96,
-              x: 1150
+                offsetY: 96,
+                x: 1150
             }
         }, {
             x: 1820,
@@ -71,8 +74,8 @@ export default function() {
             spriteSheet: 'zombie',
             frameName: 'Zombie1',
             tween: {
-              offsetY: 96,
-              x: 1520
+                offsetY: 96,
+                x: 1520
             }
         }, {
             x: 1820,
@@ -81,8 +84,8 @@ export default function() {
             spriteSheet: 'zombie',
             frameName: 'Zombie1',
             tween: {
-              offsetY: 96,
-              x: 0
+                offsetY: 96,
+                x: 0
             }
         }],
         platforms: [{
