@@ -3,8 +3,8 @@ import Config from './config.js';
 import Animations from '../../../config/animations.js';
 
 export default class BangkokStage extends BaseStage {
-    constructor(game, gameResolver, gameRejector) {
-        super(game, gameResolver, gameRejector);
+    constructor(game, gameResolver, gameRejector, stageName) {
+        super(game, gameResolver, gameRejector, stageName);
         this.config = Object.assign({}, new Config());
         this.__initializeBackground()
             .__initializeZombies()
@@ -59,13 +59,13 @@ export default class BangkokStage extends BaseStage {
         return this;
     }
     __hookButtonEvents() {
-        this.guy.hookButtonEvents();
-        return this;
-    }
-    /**
-     * TODO: A.M It needs a refactor, register animations should be in a initial
-     *  state instead on each stage
-     */
+            this.guy.hookButtonEvents();
+            return this;
+        }
+        /**
+         * TODO: A.M It needs a refactor, register animations should be in a initial
+         *  state instead on each stage
+         */
     __initializeBoomExplosion() {
         let explosion = this.config.explosion;
         super.__initializeBoomExplosion(explosion, new Animations().explosion);

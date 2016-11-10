@@ -3,8 +3,8 @@ import Config from './config.js';
 import Animations from '../../../config/animations.js';
 
 export default class BangkokStage extends BaseStage {
-    constructor(game, gameResolver, gameRejector) {
-        super(game, gameResolver, gameRejector);
+    constructor(game, gameResolver, gameRejector, stageName) {
+        super(game, gameResolver, gameRejector, stageName);
         this.config = Object.assign({}, new Config());
         this.__initializeBackground()
             .__initializeZombies()
@@ -15,7 +15,6 @@ export default class BangkokStage extends BaseStage {
             .__initializeBoomExplosion()
             .__initializeBlackMask()
             .__initializeTextAreas()
-            .__hookButtonEvents()
             .__start();
     }
     __initializeBackground() {
@@ -71,10 +70,11 @@ export default class BangkokStage extends BaseStage {
         this.__animatePlayerIn()
             .then(() => this.__animateText())
             .then(() => this.__animateZombiesIn())
-            .then(() => this.__initializePhysics())
             .then(() => this.__animateZombiesRoutine())
             .then(() => this.__initializeCountDown())
-            .then(() => this.__hookColliderEvents());
+            .then(() => this.__hookColliderEvents())
+            .then(() => this.__initializePhysics())
+            .then(() => this.__hookButtonEvents());
 
     }
     __initializeCountDown() {
@@ -92,8 +92,12 @@ export default class BangkokStage extends BaseStage {
         return this;
     }
     __initializePhysics() {
-        this.guy.initializePhysics();
-        this.zombies.map((zombie) => zombie.initializePhysics());
+        return new Promise((resolve) => {
+            this.guy.initializePhysics();
+            Promise.all(this.zombies.map((zombie) => zombie.initializePhysics()))
+                .then(() => resolve());
+        });
+
     }
     __animateZombiesIn() {
         let offsetY = this.config.zombies[0].tween.offsetY;

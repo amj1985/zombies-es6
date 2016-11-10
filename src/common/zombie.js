@@ -4,6 +4,7 @@ import Animations from '../config/animations.js';
 export default class Zombie extends BasePlayer {
     constructor(game, config) {
         super(game, config.x, config.y, config.spriteSheet, config.frameName);
+        this.config = config;
         this.registerAnimations()
             .__playBaseAnimation();
     }
@@ -12,15 +13,17 @@ export default class Zombie extends BasePlayer {
         return this;
     }
     __playBaseAnimation() {
-        this.animations.play('rightIdle');
+        this.animations.play(this.config.animation);
     }
     attack() {
         this.isAttacking = true;
+        let randomSound = `${this.key}_${this.game.rnd.integerInRange(1, 9)}`;
+        this.game.effects.play(randomSound);
         this.game.time.events.add(Phaser.Timer.SECOND, () => this._resetAttack(), this);
         super.onAttack();
     }
     _resetAttack() {
-      this.isAttacking = false;
+        this.isAttacking = false;
     }
     animateZombieRoutine(position, time) {
         let actualX = this.x;
@@ -35,20 +38,12 @@ export default class Zombie extends BasePlayer {
                 }
             }, this);
     }
-    onKilled() {
-        let animation = this.getAttackAnimationPosition();
-        this.animations.play()
-    }
     __swapIdleAnimation() {
         return new Promise((resolve) => {
-            if (this.getIdleAnimationMove() === 'leftIdle') {
-                resolve();
-                this.isLookingAt = 'right';
-                return this.animations.play('rightIdle');
-            }
+            this.config.animation = this.config.animation === 'leftIdle' ? 'rightIdle' : 'leftIdle';
+            this.isLookingAt = this.config.animation === 'leftIdle' ? 'right' : 'left';
+            this.animations.play(this.config.animation);
             resolve();
-            this.isLookingAt = 'left';
-            return this.animations.play('leftIdle');
         });
     }
 

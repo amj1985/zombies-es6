@@ -1,0 +1,55 @@
+{
+  "resources": [
+    "./generated/music.ogg",
+    "./generated/music.m4a",
+    "./generated/music.mp3",
+    "./generated/music.ac3"
+  ],
+  "spritemap": {
+    "bangkok": {
+      "start": 0,
+      "end": 74.00054421768708,
+      "loop": false
+    },
+    "china": {
+      "start": 76,
+      "end": 148.7272789115646,
+      "loop": false
+    },
+    "forest": {
+      "start": 150,
+      "end": 364.0734693877551,
+      "loop": false
+    },
+    "gameOver": {
+      "start": 366,
+      "end": 464.69167800453516,
+      "loop": false
+    },
+    "graveyard": {
+      "start": 466,
+      "end": 552.1065986394558,
+      "loop": false
+    },
+    "menu": {
+      "start": 554,
+      "end": 700.8690476190476,
+      "loop": false
+    },
+    "netherlands": {
+      "start": 702,
+      "end": 830.0522448979592,
+      "loop": false
+    },
+    "road": {
+      "start": 832,
+      "end": 947.6702040816326,
+      "loop": true
+    },
+    "thailand": {
+      "start": 949,
+      "end": 1033.0039909297052,
+      "loop": false
+    }
+  }
+}

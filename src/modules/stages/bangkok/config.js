@@ -1,4 +1,4 @@
-export default function() {
+export default function () {
     return {
         background: 'bangkok',
         blackMask: 'transitionBackground',
@@ -91,26 +91,36 @@ export default function() {
         platforms: [{
             x: -50,
             y: 250,
+            scaleX: 1,
+            scaleY: 1,
             spriteSheet: 'platforms',
             frame: 'Platform1',
         }, {
             x: 400,
             y: 500,
+            scaleX: 1,
+            scaleY: 1,
             spriteSheet: 'platforms',
             frame: 'Platform1',
         }, {
             x: 750,
             y: 750,
+            scaleX: 1,
+            scaleY: 1,
             spriteSheet: 'platforms',
             frame: 'Platform1',
         }, {
             x: 1100,
             y: 500,
+            scaleX: 1,
+            scaleY: 1,
             spriteSheet: 'platforms',
             frame: 'Platform1',
         }, {
             x: 1500,
             y: 250,
+            scaleX: 1,
+            scaleY: 1,
             spriteSheet: 'platforms',
             frame: 'Platform1',
         }]

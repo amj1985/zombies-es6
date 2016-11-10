@@ -1,14 +1,17 @@
 import Config from './config.js';
 import BangkokStage from '../../modules/stages/bangkok/bangkokStage.js';
 import ThailandStage from '../../modules/stages/thailand/thailandStage.js';
+import RoadStage from '../../modules/stages/road/roadStage.js';
 
 export default class StartScene extends Phaser.Group {
     constructor(game) {
         super(game);
         this.game = game;
         this._initialize();
+        //this.game.time.events.add(Phaser.Timer.SECOND * 0.1, () => , this);
     }
     _initialize() {
+        this.game.music.play('menu');
         this._initializeConfig()
             ._initializeBackground()
             ._initializeBlackMask()
@@ -42,9 +45,12 @@ export default class StartScene extends Phaser.Group {
         return this;
     }
     _onPlay() {
+        this.game.music.stop('menu');
+        this.game.effects.play('start');
         this.__animateFadeIn()
             .then(() => this._bankgogStage())
             .then(() => this._thailandStage())
+            .then(() => this._roadStage())
             .catch(() => {
                 this._gameOver();
             });
@@ -55,15 +61,19 @@ export default class StartScene extends Phaser.Group {
     _bankgogStage() {
         this.backGround.visible = false;
         return new Promise((resolve, reject) => {
-            new BangkokStage(this.game, resolve, reject);
+            new BangkokStage(this.game, resolve, reject, 'bangkok');
         });
     }
     _thailandStage() {
         return new Promise((resolve, reject) => {
-            new ThailandStage(this.game, resolve, reject);
+            new ThailandStage(this.game, resolve, reject, 'thailand');
         });
     }
-
+    _roadStage() {
+        return new Promise((resolve, reject) => {
+            new RoadStage(this.game, resolve, reject, 'road');
+        });
+    }
     __animateFadeIn() {
         return new Promise((resolve) => {
             this.__hideUiElements();

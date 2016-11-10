@@ -1,0 +1,100 @@
+{
+  "resources": [
+    "./generated/effects.ogg",
+    "./generated/effects.m4a",
+    "./generated/effects.mp3",
+    "./generated/effects.ac3"
+  ],
+  "spritemap": {
+    "scavenger_1": {
+      "start": 0,
+      "end": 0.3125170068027211,
+      "loop": false
+    },
+    "scavenger_2": {
+      "start": 2,
+      "end": 2.3750113378684805,
+      "loop": false
+    },
+    "scavenger_3": {
+      "start": 4,
+      "end": 4.468752834467121,
+      "loop": false
+    },
+    "scavenger_4": {
+      "start": 6,
+      "end": 6.812517006802721,
+      "loop": false
+    },
+    "scavenger_5": {
+      "start": 8,
+      "end": 8.54689342403628,
+      "loop": false
+    },
+    "zombie_1": {
+      "start": 10,
+      "end": 10.854172335600907,
+      "loop": false
+    },
+    "zombie_10": {
+      "start": 12,
+      "end": 12.687505668934241,
+      "loop": false
+    },
+    "zombie_2": {
+      "start": 14,
+      "end": 14.708321995464853,
+      "loop": false
+    },
+    "zombie_3": {
+      "start": 16,
+      "end": 16.583333333333332,
+      "loop": false
+    },
+    "zombie_4": {
+      "start": 18,
+      "end": 18.729183673469386,
+      "loop": false
+    },
+    "zombie_5": {
+      "start": 20,
+      "end": 20.5,
+      "loop": false
+    },
+    "zombie_6": {
+      "start": 22,
+      "end": 22.541655328798186,
+      "loop": false
+    },
+    "zombie_7": {
+      "start": 24,
+      "end": 24.583333333333332,
+      "loop": false
+    },
+    "zombie_8": {
+      "start": 26,
+      "end": 26.833333333333332,
+      "loop": false
+    },
+    "zombie_9": {
+      "start": 28,
+      "end": 28.874988662131518,
+      "loop": false
+    },
+    "heartBeat": {
+      "start": 30,
+      "end": 34.4418820861678,
+      "loop": false
+    },
+    "item": {
+      "start": 36,
+      "end": 36.263492063492066,
+      "loop": false
+    },
+    "start": {
+      "start": 38,
+      "end": 41.20417233560091,
+      "loop": false
+    }
+  }
+}

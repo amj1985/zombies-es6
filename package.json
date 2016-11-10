@@ -30,6 +30,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "audiosprite": "^0.6.0",
     "file-loader": "^0.9.0",
     "gulp": "^3.9.1",
     "image-loader": "0.0.1",

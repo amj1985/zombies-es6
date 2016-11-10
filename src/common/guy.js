@@ -9,11 +9,11 @@ export default class Guy extends BasePlayer {
         this.isAttacking = false;
     }
     __registerAnimations() {
-      super.registerAnimations(new Animations().guy);
-      return this;
+        super.registerAnimations(new Animations().guy);
+        return this;
     }
     __playBaseAnimation() {
-       this.animations.play('rightIdle');
+        this.animations.play('rightIdle');
     }
     hookButtonEvents() {
         this.__leftPress = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
@@ -42,11 +42,12 @@ export default class Guy extends BasePlayer {
         this.body.velocity.x = 0;
     }
     __onUpPress() {
-        if(this.body.touching.down && this.hitPlatfrom) this.body.velocity.y = -1200;
-        console.log('up pressed');
+        if (this.body.touching.down && this.hitPlatfrom) this.body.velocity.y = -1200;
     }
     __onAttack() {
-      this.isAttacking = true;
-      super.onAttack();
+        let randomSound = `${this.key}_${this.game.rnd.integerInRange(1, 5)}`;
+        this.game.effects.play(randomSound);
+        this.isAttacking = true;
+        super.onAttack();
     }
 }

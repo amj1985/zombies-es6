@@ -4,18 +4,17 @@ import Zombie from './zombie.js';
 import Explosion from './explosion.js';
 import Heart from './heart.js';
 
-
-
 export default class BaseStage extends Phaser.Group {
-    constructor(game, gameResolver, gameRejector) {
+    constructor(game, gameResolver, gameRejector, stageName) {
             super(game);
             this.resolver = gameResolver;
             this.rejector = gameRejector;
             this.game = game;
             this.zombies = [];
             this.totalLifes = 8;
+            this.stageName = stageName;
             this.isActive = true;
-            this._initialize()
+            this._initialize();
         }
         /**
          * @function private function that enable body on the grounds & platforms
@@ -23,6 +22,7 @@ export default class BaseStage extends Phaser.Group {
     _initialize() {
             this.platforms = this.game.add.group();
             this.platforms.enableBody = true;
+            this.game.music.play(this.stageName, 0.5);
             return this;
         }
         /**
@@ -84,6 +84,7 @@ export default class BaseStage extends Phaser.Group {
          * @function protected function that animate the textIntro character by character
          */
     __animateText(finalText) {
+
             return new Promise((resolve) => {
                 return Array.from(new Array(this.textSteps.length))
                     .reduce((previous) =>
@@ -132,7 +133,10 @@ export default class BaseStage extends Phaser.Group {
                     .to({
                         alpha: 1
                     }, 2000, Phaser.Easing.Linear.None, true)
-                    .onComplete.add(() => resolve(), this);
+                    .onComplete.add(() => {
+                        this.game.music.stop();
+                        resolve();
+                    }, this);
             });
         }
         /**
@@ -196,7 +200,7 @@ export default class BaseStage extends Phaser.Group {
             platforms.map((platform) => {
                 let newPlatform = this.platforms.create(platform.x, platform.y, platform.spriteSheet, platform.frame);
                 newPlatform.body.immovable = true;
-                newPlatform.scale.setTo(1, 1);
+                newPlatform.scale.setTo(platform.scaleX, platform.scaleY);
                 return this;
             });
             return this;
@@ -221,6 +225,7 @@ export default class BaseStage extends Phaser.Group {
     }
     _reduceLifeByOne() {
             if (this.totalLifes > 0) {
+                this.game.effects.play('heartBeat', 4);
                 this.heartArray[this.totalLifes - 1].off();
                 this.totalLifes--;
             }
@@ -234,18 +239,22 @@ export default class BaseStage extends Phaser.Group {
     }
     _endGame(message) {
             return new Promise((resolve) => {
+                if (message === 'GAME OVER !!') {
+                    this.game.music.play('gameOver');
+                }
                 this.config.textInfo.startText = '';
                 this.bringToTop(this.mainText);
                 this.mainText.setText('');
+                this.mainText.style.fill = '#ffffff';
                 this.mainText.y = this.game.world.centerY;
                 this.mainText.visible = true;
                 this.textSteps = Object.assign([], message);
-                this.__animateText()
+                this.__animateText(message)
                     .then(() => this.__waitSomeSecondsPromiser(1, resolve));
             });
         }
         /**
-         * @function protected method extends from Phaser.Group that extends from Phaser.State
+         * @function protected method extends from Phaser.Group that extends from Phaser.State and it's being called every frame
          */
     update() {
             this.guy.hitPlatfrom = this.game.physics.arcade.collide(this.guy, this.platforms);
@@ -281,6 +290,7 @@ export default class BaseStage extends Phaser.Group {
             this._animateFadeIn()
                 .then(() => this._endGame(this.config.textInfo.endStage))
                 .then(() => {
+                    this.mainText.visible = true;
                     this.visible = false;
                     this.resolver();
                 });
