@@ -32,7 +32,8 @@ export default class StartScene extends Phaser.Group {
         return this;
     }
     _initializeText() {
-        this.textInfo = this.add(new Phaser.Text(this.game, this.config.textInfoX, this.config.textInfoY, this.config.textInfo, this.config.style));
+        this.textInfo = this.add(new Phaser.Text(this.game, this.game.world.centerX, this.config.textInfoY, this.config.textInfo, this.config.style));
+        this.textInfo.anchor.setTo(0.5, 0.5);
         return this;
     }
     _initializeButton() {
@@ -45,6 +46,7 @@ export default class StartScene extends Phaser.Group {
         return this;
     }
     _onPlay() {
+        this.game.music.stop('gameOver');
         this.game.music.stop('menu');
         this.game.effects.play('start');
         this.__animateFadeIn()
@@ -56,27 +58,33 @@ export default class StartScene extends Phaser.Group {
             });
     }
     _gameOver() {
-
+        this._showUiElements();
+        this.game.world.bringToTop(this.buttonPlay);
+        this.game.world.bringToTop(this.buttonText);
+        this.textInfo.setText('You have a new chance');
+        this.buttonText.setText('Restart');
     }
     _bankgogStage() {
         this.backGround.visible = false;
         return new Promise((resolve, reject) => {
-            new BangkokStage(this.game, resolve, reject, 'bangkok');
+            this.actualStage = new BangkokStage(this.game, resolve, reject, 'bangkok');
         });
     }
     _thailandStage() {
         return new Promise((resolve, reject) => {
-            new ThailandStage(this.game, resolve, reject, 'thailand');
+            this.actualStage = void 0;
+            this.actualStage = new ThailandStage(this.game, resolve, reject, 'thailand');
         });
     }
     _roadStage() {
         return new Promise((resolve, reject) => {
-            new RoadStage(this.game, resolve, reject, 'road');
+            this.actualStage = void 0;
+            this.actualStage = new RoadStage(this.game, resolve, reject, 'road');
         });
     }
     __animateFadeIn() {
         return new Promise((resolve) => {
-            this.__hideUiElements();
+            this._hideUiElements();
             this.game.add.tween(this.blackMask)
                 .to({
                     alpha: 1
@@ -85,9 +93,14 @@ export default class StartScene extends Phaser.Group {
         });
 
     }
-    __hideUiElements() {
+    _hideUiElements() {
         this.buttonPlay.visible = false;
         this.buttonText.visible = false;
         this.textInfo.visible = false;
+    }
+    _showUiElements() {
+        this.buttonPlay.visible = true;
+        this.buttonText.visible = true;
+        this.textInfo.visible = true;
     }
 }

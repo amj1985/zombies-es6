@@ -40,10 +40,15 @@ module.exports = () => {
             'url': require('../../assets/shared/7.png'),
             'overwrite': false
         },
+        blood: {
+            'type': 'image',
+            'url': require('../../assets/shared/blood.png'),
+            'overwrite': false
+        },
         transitionBackground: {
-          'type': 'image',
-          'url': require('../../assets/shared/transitionBackground.png'),
-          'overwrite': false
+            'type': 'image',
+            'url': require('../../assets/shared/transitionBackground.png'),
+            'overwrite': false
         }
     }
 };

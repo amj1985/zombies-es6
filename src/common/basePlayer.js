@@ -41,9 +41,6 @@ export default class BasePlayer extends Phaser.Sprite {
     getAttackAnimationPosition() {
         return this.isLookingAt === 'left' ? 'leftAttack' : 'rightAttack';
     }
-    __waitSomeSecondsPromiser(time, resolve) {
-        this.game.time.events.add(Phaser.Timer.SECOND * time, () => resolve(), this);
-    }
     moveToPosition(offset) {
         return new Promise((resolve) => {
             if (this.key === 'zombie') {
