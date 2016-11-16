@@ -1,0 +1,90 @@
+{
+"frames": {
+	"scavenger1": {
+		"frame": {"x":34, "y":102, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger10": {
+		"frame": {"x":34, "y":68, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger11": {
+		"frame": {"x":34, "y":34, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger12": {
+		"frame": {"x":34, "y":0, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger13": {
+		"frame": {"x":0, "y":102, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger14": {
+		"frame": {"x":0, "y":68, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger15": {
+		"frame": {"x":0, "y":34, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger16": {
+		"frame": {"x":0, "y":0, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger2": {
+		"frame": {"x":102, "y":68, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger3": {
+		"frame": {"x":102, "y":34, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger4": {
+		"frame": {"x":102, "y":0, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger5": {
+		"frame": {"x":68, "y":102, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger6": {
+		"frame": {"x":68, "y":68, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger7": {
+		"frame": {"x":68, "y":34, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger8": {
+		"frame": {"x":68, "y":0, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	},
+	"scavenger9": {
+		"frame": {"x":102, "y":102, "w":33, "h":33},
+		"spriteSourceSize": {"x":0,"y":0,"w":33,"h":33},
+		"sourceSize": {"w":33,"h":33}
+	}
+
+},
+"meta": {
+	"image": "scavenger2.png",
+	"size": {"w": 136, "h": 136},
+	"scale": "1"
+}
+}

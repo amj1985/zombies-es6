@@ -3,12 +3,12 @@ import Config from './config.js';
 import Animations from '../../../config/animations.js';
 
 export default class BangkokStage extends BaseStage {
-  constructor(game, gameResolver, gameRejector, stageName) {
-    super(game, gameResolver, gameRejector, stageName);
+  constructor(game, gameResolver, gameRejector, stageName, hub, connectionIds) {
+    super(game, gameResolver, gameRejector, stageName, hub, connectionIds);
     this.config = Object.assign({}, new Config());
     this.__initializeBackground()
       .__initializeZombies()
-      .__initializeGuy()
+      .__initializePlayers()
       .__initializePlatforms()
       .__initializeGround()
       .__initializeHearts()
@@ -31,9 +31,9 @@ export default class BangkokStage extends BaseStage {
     super.__initializeTextAreas(textInfo);
     return this;
   }
-  __initializeGuy() {
-    let guy = this.config.guy;
-    super.__initializeGuy(guy);
+  __initializePlayers() {
+    let players = this.config.players;
+    super.__initializeGuy(players);
     return this;
   }
   __initializeHearts() {

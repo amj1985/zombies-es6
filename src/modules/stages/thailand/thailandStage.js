@@ -3,8 +3,8 @@ import Config from './config.js';
 import Animations from '../../../config/animations.js';
 
 export default class BangkokStage extends BaseStage {
-  constructor(game, gameResolver, gameRejector, stageName) {
-    super(game, gameResolver, gameRejector, stageName);
+  constructor(game, gameResolver, gameRejector, stageName, hub, connectionIds) {
+    super(game, gameResolver, gameRejector, stageName, hub, connectionIds);
     this.config = Object.assign({}, new Config());
     this.__initializeBackground()
       .__initializeZombies()

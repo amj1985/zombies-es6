@@ -8,11 +8,14 @@ import Blood from './blood.js';
 import Bonus from './bonus.js';
 
 export default class BaseStage extends Phaser.Group {
-  constructor(game, gameResolver, gameRejector, stageName) {
+  constructor(game, gameResolver, gameRejector, stageName, hub, connectionIds = undefined) {
       super(game);
       this.resolver = gameResolver;
       this.rejector = gameRejector;
+      this.hub = hub;
+      this.connectionIds = connectionIds;
       this.game = game;
+      this.players = [];
       this.zombies = [];
       this.gamePlatforms = [];
       this.totalLifes = 8;
@@ -33,12 +36,9 @@ export default class BaseStage extends Phaser.Group {
      * @function protected function that initialize hearts
      */
   __initializeHearts(config) {
-      this.heartArray = [];
-      Array.from(new Array(config.totalLifes)).map(() => {
-        let heart = this.add(new Heart(this.game, config));
-        config.x += config.offset;
-        this.heartArray.push(heart);
-      });
+      this.players.map((guy) => {
+        guy.initializeHearts(config);
+      })
     }
     /**
      * @function protected function that initialize boom Explosion
@@ -186,18 +186,34 @@ export default class BaseStage extends Phaser.Group {
      * @function private method (callback) that reduce the totalLifes by one when is called
      */
   _onCountDownCallback() {
-      if (this.guy.totalLifes !== 0) {
-        this._reduceLifeByOne();
-      } else if (this.isActive === true) {
-        this.isActive == false;
-        this._animateFadeIn()
-          .then(() => this._endGame(this.config.textInfo.gameOver))
-          .then(() => {
-            this.visible = false
-            this.rejector();
-          });
-      }
+    if (this.guy.totalLifes !== 0) {
+      this._reduceLifeByOne();
+    } else if (this.isActive === true) {
+      this.isActive == false;
+      this._animateFadeIn()
+        .then(() => this._endGame(this.config.textInfo.gameOver))
+        .then(() => {
+          this.visible = false
+          this.rejector();
+        });
     }
+  }
+  onLeftPress(connectionId) {
+    let player = this.players.filter(element => element.connectionId == connectionId)[0];
+    player.onLeftPress();
+  }
+  onRightPress(connectionId) {
+    let player = this.players.filter(element => element.connectionId == connectionId)[0];
+    player.onRightPress();
+  }
+  onUpPress(connectionId) {
+    let player = this.players.filter(element => element.connectionId == connectionId)[0];
+    player.onUpPress();
+  }
+  onAttack(connectionId) {
+    let player = this.players.filter(element => element.connectionId == connectionId)[0];
+    player.onAttack();
+  }
     /**
      * @function protected method that creates a new background
      */
@@ -239,10 +255,18 @@ export default class BaseStage extends Phaser.Group {
     /**
      * @function protected method that creates a new scavenger
      */
-  __initializeGuy(guyConfig) {
-      this.guy = this.add(new Guy(this.game, this.config.guy));
-      this.guy.scale.setTo(3, 3);
-      this.game.physics.arcade.enable(this.guy);
+  __initializePlayers(players) {
+      if(this.connectionIds === undefined){
+        return this;
+      }
+      debugger;
+      this.connectionIds.map((connectionId, index) => {
+        let guy = this.add(new Guy(this.game, players[index], connectionId));
+        guy.scale.setTo(3, 3);
+        this.game.physics.arcade.enable(guy);
+        this.players.push(guy);
+        return this;
+      });
       return this;
     }
     /**
@@ -303,12 +327,14 @@ export default class BaseStage extends Phaser.Group {
      * @function protected method extends from Phaser.Group that extends from Phaser.State and it's being called every frame
      */
   update() {
-      this.guy.hitPlatfrom = this.game.physics.arcade.collide(this.guy, this.platforms);
+      this.players.map((guy) => {
+        guy.hitPlatfrom = this.game.physics.arcade.collide(guy, this.platforms);
+        this.game.physics.arcade.collide(guy, this.zombies);
+        if (this.bonusItem) {
+          this.game.physics.arcade.collide(guy, this.bonusItem);
+        }
+      });
       this.game.physics.arcade.collide(this.zombies, this.platforms);
-      this.game.physics.arcade.collide(this.guy, this.zombies);
-      if (this.bonusItem) {
-        this.game.physics.arcade.collide(this.guy, this.bonusItem);
-      }
     }
     /**
      * @function protected method that animate zombies between platforms

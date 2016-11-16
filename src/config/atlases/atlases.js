@@ -10,6 +10,11 @@ module.exports = () => {
       format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
       url: require('../../assets/shared/scavenger.png')
     },
+    'scavenger2': {
+      data: require('../../assets/atlases/scavenger2.json'),
+      format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
+      url: require('../../assets/shared/scavenger2.png')
+    },
     'buttonPlay': {
       data: require('../../assets/atlases/buttons.json'),
       format: Phaser.Loader.TEXTURE_ATLAS_JSON_HASH,
