@@ -1,5 +1,6 @@
 import BasePlayer from './basePlayer.js';
 import Animations from '../config/animations.js';
+import Heart from './heart.js';
 
 export default class Guy extends BasePlayer {
   constructor(game, config, connectionId) {
@@ -25,7 +26,7 @@ export default class Guy extends BasePlayer {
     this.totalLifes++;
   }
   initializeHearts(config) {
-
+  //  this.heartArray = this.add();
   }
   hookButtonEvents() {
     this.__leftPress = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);

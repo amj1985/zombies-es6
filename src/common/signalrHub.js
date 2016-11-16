@@ -16,11 +16,12 @@ export default class SignalRHub {
     }
   }
   _connect() {
-    let connection = $.hubConnection('http://localhost:53316');
+    let connection = $.hubConnection('http://localhost:50217');
     this.proxy = connection.createHubProxy('ZombiesHub');
     this.proxy.on("NotifyEndGame", () => this._isEndGame());
     return new Promise((resolve, reject) => {
       connection.start().done(() => {
+        console.log("zombiesGame connection established");
         const connectionId = connection.id;
         this.proxy.invoke("NotifyServerOn", connectionId);
         this.isConnected = true;
@@ -39,7 +40,7 @@ export default class SignalRHub {
   }
   _hookConnectionEvent() {
     this.proxy.on("OnPlayerConnected", (connectionId) => {
-      console.log("connection stablished");
+      console.log("Player connected: " + connectionId);
       this.parent.onPlayerConnected(connectionId)
     });
   }

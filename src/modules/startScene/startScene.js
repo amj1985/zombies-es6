@@ -29,7 +29,6 @@ export default class StartScene extends Phaser.Group {
   }
   onPlayerConnected(connectionId) {
     if (connectionId !== undefined) {
-      console.log("Player connected");
       this.connectionIds.push(connectionId);
     }
 
@@ -72,7 +71,8 @@ export default class StartScene extends Phaser.Group {
       .then(() => this._bankgogStage())
       .then(() => this._thailandStage())
       .then(() => this._roadStage())
-      .catch(() => {
+      .catch((reason) => {
+        console.log(reason);
         this._gameOver();
       });
   }
@@ -86,19 +86,19 @@ export default class StartScene extends Phaser.Group {
   _bankgogStage() {
     this.backGround.visible = false;
     return new Promise((resolve, reject) => {
-      this.actualStage = new BangkokStage(this.game, resolve, reject, 'bangkok', this.connectionIds);
+      this.actualStage = new BangkokStage(this.game, resolve, reject, 'bangkok', this.hubManager, this.connectionIds);
     });
   }
   _thailandStage() {
     return new Promise((resolve, reject) => {
       this.actualStage = void 0;
-      this.actualStage = new ThailandStage(this.game, resolve, reject, 'thailand');
+      this.actualStage = new ThailandStage(this.game, resolve, reject, 'thailand', this.hubManager, this.connectionIds);
     });
   }
   _roadStage() {
     return new Promise((resolve, reject) => {
       this.actualStage = void 0;
-      this.actualStage = new RoadStage(this.game, resolve, reject, 'road');
+      this.actualStage = new RoadStage(this.game, resolve, reject, 'road', this.hubManager, this.connectionIds);
     });
   }
   __animateFadeIn() {

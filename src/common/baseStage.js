@@ -79,9 +79,15 @@ export default class BaseStage extends Phaser.Group {
     /**
      * @function protected function that animate guy to the start point
      */
-  __animatePlayerIn(offsetX) {
-      return this.guy.moveToPosition(offsetX);
-    }
+  __animatePlayerIn(config) {
+    return new Promise((resolve) => {
+      Promise.all(this.players.map((guy, index) => {
+          return guy.moveToPosition(config[index].offsetX);
+          return this;
+        })).then(() => resolve());
+    });
+  }
+
     /**
      * @function protected function that animate zombies up from the ground
      */
@@ -186,7 +192,7 @@ export default class BaseStage extends Phaser.Group {
      * @function private method (callback) that reduce the totalLifes by one when is called
      */
   _onCountDownCallback() {
-    if (this.guy.totalLifes !== 0) {
+    if (this.players[0].totalLifes !== 0 || this.players[1].totalLifes !== 0) {
       this._reduceLifeByOne();
     } else if (this.isActive === true) {
       this.isActive == false;
@@ -259,7 +265,6 @@ export default class BaseStage extends Phaser.Group {
       if(this.connectionIds === undefined){
         return this;
       }
-      debugger;
       this.connectionIds.map((connectionId, index) => {
         let guy = this.add(new Guy(this.game, players[index], connectionId));
         guy.scale.setTo(3, 3);
@@ -294,7 +299,7 @@ export default class BaseStage extends Phaser.Group {
      * @function private method (callback) being called when guy collide a zombie
      */
   _onCollisionCallback(zombie) {
-      if (this.guy.isAttacking) this._processGuyAttack(zombie);
+      if (this.players[0].isAttacking || this.players[1].isAttacking) this._processGuyAttack(zombie);
       else this._processZombieAttack(zombie);
     }
     /**

@@ -33,7 +33,7 @@ export default class BangkokStage extends BaseStage {
   }
   __initializePlayers() {
     let players = this.config.players;
-    super.__initializeGuy(players);
+    super.__initializePlayers(players);
     return this;
   }
   __initializeHearts() {
@@ -62,7 +62,9 @@ export default class BangkokStage extends BaseStage {
     return this;
   }
   __hookButtonEvents() {
-    this.guy.hookButtonEvents();
+    this.players.map((guy) => {
+      guy.hookButtonEvents();
+    })
     return this;
   }
   __initializeBoomExplosion() {
@@ -97,7 +99,9 @@ export default class BangkokStage extends BaseStage {
   }
   __initializePhysics() {
     return new Promise((resolve) => {
-      this.guy.initializePhysics();
+      this.players.map((guy) => {
+        guy.initializePhysics()
+      });
       Promise.all(this.zombies.map((zombie) => zombie.initializePhysics()))
         .then(() => resolve());
     });
@@ -108,8 +112,7 @@ export default class BangkokStage extends BaseStage {
     return super.__animateZombiesIn(offsetY);
   }
   __animatePlayerIn() {
-    let offsetX = this.config.guy.offsetX;
-    return super.__animatePlayerIn(offsetX);
+    return super.__animatePlayerIn(this.config.players);
   }
   __animateText() {
     let text = this.config.textInfo.startText;
