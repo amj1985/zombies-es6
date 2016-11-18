@@ -1,4 +1,4 @@
-import Utils from './utils.js';
+import Utils from '../common/utils.js';
 
 export default class Bonus extends Phaser.Sprite {
   constructor(game, config, guy, hearts) {
@@ -43,17 +43,17 @@ export default class Bonus extends Phaser.Sprite {
     return new Promise((resolve) => Utils.waitSomeSecondsPromiser(this.game, 0.5, resolve, this))
       .then(() => {
         this.body.onCollide = new Phaser.Signal();
-        this.body.onCollide.add(() => this._onCollisionCallback(), this);
+        this.body.onCollide.add((undefined, guy) => this._onCollisionCallback(guy), this);
       });
   }
-  _onCollisionCallback() {
+  _onCollisionCallback(guy) {
     if (this.isActive) {
       this.game.effects.play('item', 4);
       this.isCollided = true;
-      let heart = this.hearts.filter(heart => heart.frameName === 'heart')[0];
+      let heart = guy.heartArray.filter(heart => heart.frameName === 'heart')[0];
       if (heart !== undefined) {
         heart.on();
-        this.guy.incrementLife();
+        guy.incrementLife();
         this.isActive = false;
         this._removeBonusEvents();
         this.destroy();

@@ -9,14 +9,14 @@ export default class SignalRHub {
   setParent(parent, isStage = false) {
     this.parent = parent;
     if (!this.isHook && isStage) {
-      this._hookSignalEvents(parent);
+      this._hookSignalEvents();
       this.isHook = true;
     } else {
       this._hookConnectionEvent();
     }
   }
   _connect() {
-    let connection = $.hubConnection('http://localhost:50217');
+    let connection = $.hubConnection('http://zombieshub.azurewebsites.net/');
     this.proxy = connection.createHubProxy('ZombiesHub');
     this.proxy.on("NotifyEndGame", () => this._isEndGame());
     return new Promise((resolve, reject) => {
@@ -32,11 +32,12 @@ export default class SignalRHub {
       });
     });
   }
-  _hookSignalEvents(parent) {
-    this.proxy.on("NotifyLeftMove", () => this.parent.onLeftPress(connectionId));
-    this.proxy.on("NotifyRightMove", () => this.parent.onRightPress(connectionId));
-    this.proxy.on("NotifyUpMove", () => this.parent.onUpPress(connectionId));
-    this.proxy.on("NotifyAttack", () => this.parent.onAttack(connectionId));
+  _hookSignalEvents() {
+    this.proxy.on("NotifyLeftMove", (connectionId) => this.parent.onLeftPress(connectionId));
+    this.proxy.on("NotifyRightMove", (connectionId) => this.parent.onRightPress(connectionId));
+    this.proxy.on("NotifyUpMove", (connectionId) => this.parent.onUpPress(connectionId));
+    this.proxy.on("NotifyAttack", (connectionId) => this.parent.onAttack(connectionId));
+    this.proxy.on("NotifyStopMove", (connectionId) => this.parent.onStop(connectionId));
   }
   _hookConnectionEvent() {
     this.proxy.on("OnPlayerConnected", (connectionId) => {

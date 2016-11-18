@@ -1,4 +1,4 @@
-import BasePlayer from './basePlayer.js';
+import BasePlayer from '../common/basePlayer.js';
 import Animations from '../config/animations.js';
 import Heart from './heart.js';
 
@@ -21,20 +21,30 @@ export default class Guy extends BasePlayer {
   }
   reduceLife() {
     this.totalLifes--;
+    if(this.totalLifes === 0) {
+      this.body.collideWorldBounds = false;
+      this.body.moves = false;
+      this.visible = false;
+    }
   }
   incrementLife() {
     this.totalLifes++;
   }
   initializeHearts(config) {
-  //  this.heartArray = this.add();
+    this.heartArray = [];
+    Array.from(new Array(config.totalLifes)).map(() => {
+      let heart = new Heart(this.game, config);
+      config.x += config.offset;
+      this.heartArray.push(heart);
+    });
   }
   hookButtonEvents() {
     this.__leftPress = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     this.__leftPress.onDown.add(() => this.onLeftPress(), this);
-    this.__leftPress.onUp.add(() => this.__onStop(), this);
+    this.__leftPress.onUp.add(() => this.onStop(), this);
     this.__RightPress = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
     this.__RightPress.onDown.add(() => this.onRightPress(), this);
-    this.__RightPress.onUp.add(() => this.__onStop(), this);
+    this.__RightPress.onUp.add(() => this.onStop(), this);
     this.__upPress = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
     this.__upPress.onDown.add(() => this.onUpPress(), this);
     this.__onSpacePress = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -53,7 +63,7 @@ export default class Guy extends BasePlayer {
     this.animations.play('rightIdle');
 
   }
-  __onStop() {
+  onStop() {
     this.body.velocity.x = 0;
   }
   onUpPress() {

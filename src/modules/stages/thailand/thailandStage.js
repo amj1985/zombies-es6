@@ -8,14 +8,13 @@ export default class BangkokStage extends BaseStage {
     this.config = Object.assign({}, new Config());
     this.__initializeBackground()
       .__initializeZombies()
-      .__initializeGuy()
+      .__initializePlayers()
       .__initializePlatforms()
       .__initializeGround()
       .__initializeHearts()
       .__initializeBoomExplosion()
       .__initializeBlackMask()
       .__initializeTextAreas()
-      .__hookButtonEvents()
       .__start();
   }
   __initializeBackground() {
@@ -32,9 +31,9 @@ export default class BangkokStage extends BaseStage {
     super.__initializeTextAreas(textInfo);
     return this;
   }
-  __initializeGuy() {
-    let guy = this.config.guy;
-    super.__initializeGuy(guy);
+  __initializePlayers() {
+    let players = this.config.players;
+    super.__initializePlayers(players);
     return this;
   }
   __initializeHearts() {
@@ -63,11 +62,13 @@ export default class BangkokStage extends BaseStage {
     return this;
   }
   __hookButtonEvents() {
-      this.guy.hookButtonEvents();
+      this.players.map((guy) => {
+        guy.hookButtonEvents();
+      })
       return this;
     }
     /**
-     * TODO: A.M It needs a refactor, register animations should be in a initial
+     * TODO: It needs a refactor, register animations should be in a initial
      *  state instead on each stage
      */
   __initializeBoomExplosion() {
@@ -83,6 +84,8 @@ export default class BangkokStage extends BaseStage {
       .then(() => this.__animateZombiesRoutine())
       .then(() => this.__initializeCountDown())
       .then(() => this.__hookColliderEvents())
+      .then(() => this.__initializePhysics())
+      .then(() => this.__hookSignalEvents())
       .then(() => this.__hookButtonEvents());
     this.__initializeBloodArea();
 
@@ -101,17 +104,25 @@ export default class BangkokStage extends BaseStage {
     super.__animateZombiesRoutine(this.zombies, this.config.zombies);
     return this;
   }
+  __hookSignalEvents(){
+    super.__hookSignalEvents();
+    return this;
+  }
   __initializePhysics() {
-    this.guy.initializePhysics();
-    this.zombies.map((zombie) => zombie.initializePhysics());
+    return new Promise((resolve) => {
+      this.players.map((guy) => {
+        guy.initializePhysics();
+      });
+      Promise.all(this.zombies.map((zombie) => zombie.initializePhysics()))
+        .then(() => resolve());
+    });
   }
   __animateZombiesIn() {
     let offsetY = this.config.zombies[0].tween.offsetY;
     return super.__animateZombiesIn(offsetY);
   }
   __animatePlayerIn() {
-    let offsetX = this.config.guy.offsetX;
-    return super.__animatePlayerIn(offsetX);
+    return super.__animatePlayerIn(this.config.players);
   }
 
   __animateText() {

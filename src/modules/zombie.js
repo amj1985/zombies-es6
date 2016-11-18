@@ -1,4 +1,4 @@
-import BasePlayer from './basePlayer.js';
+import BasePlayer from '../common/basePlayer.js';
 import Animations from '../config/animations.js';
 
 export default class Zombie extends BasePlayer {

@@ -1,11 +1,11 @@
 import Phaser from 'phaser';
-import Guy from './guy.js';
-import Zombie from './zombie.js';
-import Explosion from './explosion.js';
-import Heart from './heart.js';
+import Guy from '../modules/guy.js';
+import Zombie from '../modules/zombie.js';
+import Explosion from '../modules/explosion.js';
+import Heart from '../modules/heart.js';
 import Utils from './utils.js';
-import Blood from './blood.js';
-import Bonus from './bonus.js';
+import Blood from '../modules/blood.js';
+import Bonus from '../modules/bonus.js';
 
 export default class BaseStage extends Phaser.Group {
   constructor(game, gameResolver, gameRejector, stageName, hub, connectionIds = undefined) {
@@ -36,9 +36,17 @@ export default class BaseStage extends Phaser.Group {
      * @function protected function that initialize hearts
      */
   __initializeHearts(config) {
-      this.players.map((guy) => {
+      this.players.map((guy, index) => {
         guy.initializeHearts(config);
+        guy.heartArray.map((heart) => {
+          this.add(heart);
+        });
       })
+      let offsetX = 320;
+      this.players[1].heartArray.map((heart) => {
+        heart.y += 40;
+        heart.x -= offsetX;
+      });
     }
     /**
      * @function protected function that initialize boom Explosion
@@ -47,6 +55,15 @@ export default class BaseStage extends Phaser.Group {
       this.boomExplosion = this.add(new Explosion(this.game, config));
       this.boomExplosion.registerAnimations(animations);
       return this;
+    }
+    /**
+     * @function protected function that hook signalR events to create a link between game and hub
+     */
+    __hookSignalEvents(){
+      return new Promise((resolve) => {
+        this.hub.setParent(this, true);
+        resolve();
+      });
     }
     /**
      * @function protected function that initialize the blackMask for fadeIn -- fadeOut effect purpose
@@ -204,6 +221,10 @@ export default class BaseStage extends Phaser.Group {
         });
     }
   }
+  onStop(connectionId) {
+    let player = this.players.filter(element => element.connectionId == connectionId)[0];
+    player.onStop();
+  }
   onLeftPress(connectionId) {
     let player = this.players.filter(element => element.connectionId == connectionId)[0];
     player.onLeftPress();
@@ -277,30 +298,40 @@ export default class BaseStage extends Phaser.Group {
     /**
      * @function protected method that hook an eventHandlers to the zombies collision purpose
      */
-  __hookColliderEvents(guy, zombies) {
+  __hookColliderEvents() {
       this.zombies.map((zombie) => {
         zombie.body.onCollide = new Phaser.Signal();
-        zombie.body.onCollide.add(() => this._onCollisionCallback(zombie), this);
+        zombie.body.onCollide.add((zombie, guy) => this._onCollisionCallback(zombie, guy), this);
       });
     }
     /**
      * @function private method that redufe a life by one when zombie hit scanveger or timeout callback is called
      */
-  _reduceLifeByOne() {
-      if (this.guy.totalLifes > 0) {
-        this.game.effects.play('heartBeat', 2);
-        let hearts = this.heartArray.filter(heart => heart.frameName === 'heart-on');
+  _reduceLifeByOne(guy = undefined) {
+      if(guy !== undefined){
+        let hearts = guy.heartArray.filter(heart => heart.frameName === 'heart-on');
         let heart = hearts[hearts.length - 1];
         heart.off();
-        this.guy.reduceLife();
+        guy.reduceLife();
+      }
+      else{
+        if (this.players[0].totalLifes > 0 && this.players[1].totalLifes > 0) {
+          this.game.effects.play('heartBeat', 2);
+          this.players.map((player) => {
+            let hearts = player.heartArray.filter(heart => heart.frameName === 'heart-on');
+            let heart = hearts[hearts.length - 1];
+            heart.off();
+            player.reduceLife();
+          });
+        }
       }
     }
     /**
      * @function private method (callback) being called when guy collide a zombie
      */
-  _onCollisionCallback(zombie) {
-      if (this.players[0].isAttacking || this.players[1].isAttacking) this._processGuyAttack(zombie);
-      else this._processZombieAttack(zombie);
+  _onCollisionCallback(zombie, guy) {
+      if (guy.isAttacking || guy.isAttacking) this._processGuyAttack(zombie);
+      else this._processZombieAttack(zombie, guy);
     }
     /**
      * @function private method that reset the scene
@@ -382,7 +413,7 @@ export default class BaseStage extends Phaser.Group {
   _processGuyAttack(zombie) {
       this.boomExplosion.playBoomAnimation(zombie.x, zombie.y);
       zombie.destroy();
-      if (this.game.rnd.integerInRange(1, 10) > this.config.itemChance && !this.bonusItem && this.guy.totalLifes !== 8) {
+      if (this.game.rnd.integerInRange(1, 10) > this.config.itemChance && !this.bonusItem && this.players[0].totalLifes !== 8 && this.players[1].totalLifes !== 8) {
         this._createBonusItem(zombie);
       } else if (this.bonusItem && !this.bonusItem.isActive) {
         this._createBonusItem(zombie);
@@ -403,16 +434,16 @@ export default class BaseStage extends Phaser.Group {
     /**
      * @function private method that handle zombie attack
      */
-  _processZombieAttack(zombie) {
-    if (!zombie.isAttacking) {
+  _processZombieAttack(zombie, guy) {
+    if (!zombie.isAttacking && guy.totalLifes !== 0) {
       zombie.attack();
       this.bloodArea.animateBloodIn()
         .then(() => this.bloodArea.animateBloodOut())
         .then(() => {
-          this._reduceLifeByOne();
+          this._reduceLifeByOne(guy);
           this.game.time.events.remove(this.countDown);
           this.__initializeCountDown();
-          if (this.guy.totalLifes === 0 && this.isActive) {
+          if (this.players[0].totalLifes === 0 && this.players[1].totalLifes === 0 && this.isActive) {
             this.isActive = false;
             this.game.time.events.remove(this.countDown);
             this._animateFadeIn()

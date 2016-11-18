@@ -7,7 +7,7 @@ export default function () {
     textInfo: {
       textStage: 'STAGE 2 THAILAND',
       startText: 'START !!',
-      endStage: 'STAGE 2 SUCCESS !!',
+      endStage: 'THE WORLD IS SAVED !!',
       gameOver: 'GAME OVER !!',
       y: 100,
       style: {
@@ -36,13 +36,19 @@ export default function () {
       spriteSheet: 'explosion',
       frameName: null,
     },
-    guy: {
+    players: [{
+      x: -80,
+      y: 152,
+      offsetX: 30,
+      spriteSheet: 'scavenger',
+      frameName: 'scavenger4'
+    }, {
       x: -80,
       y: 152,
       offsetX: 100,
-      spriteSheet: 'scavenger',
-      frameName: 'scavenger4',
-    },
+      spriteSheet: 'scavenger2',
+      frameName: 'scavenger4'
+    }],
     zombies: [{
       x: 440,
       y: 500,

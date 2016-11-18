@@ -1,7 +1,6 @@
 import Config from './config.js';
 import BangkokStage from '../../modules/stages/bangkok/bangkokStage.js';
 import ThailandStage from '../../modules/stages/thailand/thailandStage.js';
-import RoadStage from '../../modules/stages/road/roadStage.js';
 import Hub from '../../common/signalrHub.js';
 import Utils from '../../common/utils.js';
 
@@ -70,11 +69,18 @@ export default class StartScene extends Phaser.Group {
     this.__animateFadeIn()
       .then(() => this._bankgogStage())
       .then(() => this._thailandStage())
-      .then(() => this._roadStage())
+      .then(() => this._winGame())
       .catch((reason) => {
         console.log(reason);
         this._gameOver();
       });
+  }
+  _winGame() {
+    this._showUiElements();
+    this.game.world.bringToTop(this.buttonPlay);
+    this.game.world.bringToTop(this.buttonText);
+    this.textInfo.setText('Thank you for playing');
+    this.buttonText.visible = false;
   }
   _gameOver() {
     this._showUiElements();

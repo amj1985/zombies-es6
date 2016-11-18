@@ -67,6 +67,10 @@ export default class BangkokStage extends BaseStage {
     })
     return this;
   }
+  /**
+   * TODO: It needs a refactor, register animations should be in a initial
+   *  state instead on each stage
+   */
   __initializeBoomExplosion() {
     let explosion = this.config.explosion;
     super.__initializeBoomExplosion(explosion, new Animations().explosion);
@@ -80,6 +84,7 @@ export default class BangkokStage extends BaseStage {
       .then(() => this.__initializeCountDown())
       .then(() => this.__hookColliderEvents())
       .then(() => this.__initializePhysics())
+      .then(() => this.__hookSignalEvents())
       .then(() => this.__hookButtonEvents());
     this.__initializeBloodArea();
   }
@@ -92,6 +97,10 @@ export default class BangkokStage extends BaseStage {
     super.__hookColliderEvents();
     return this;
   }
+  __hookSignalEvents(){
+    super.__hookSignalEvents();
+    return this;
+  }
   __animateZombiesRoutine() {
     this.mainText.visible = false;
     super.__animateZombiesRoutine(this.zombies, this.config.zombies);
@@ -100,12 +109,11 @@ export default class BangkokStage extends BaseStage {
   __initializePhysics() {
     return new Promise((resolve) => {
       this.players.map((guy) => {
-        guy.initializePhysics()
+        guy.initializePhysics();
       });
       Promise.all(this.zombies.map((zombie) => zombie.initializePhysics()))
         .then(() => resolve());
     });
-
   }
   __animateZombiesIn() {
     let offsetY = this.config.zombies[0].tween.offsetY;
