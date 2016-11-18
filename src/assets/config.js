@@ -1,5 +1,5 @@
 /**
- * A.M: This function contains the base config of the game.
+ * A.M: This function contains the assets config;
  * @function
  */
 export default function () {
