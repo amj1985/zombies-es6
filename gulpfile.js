@@ -8,7 +8,7 @@ var webpackConfig = require('./webpack.config.js');
 gulp.task('default', function() {
   return gutil.log('Gulp is running!')
 });
-gulp.task("webpack-dev-server", function(callback) {
+gulp.task("run-server", function(callback) {
     var mConfig = Object.create(webpackConfig);
     mConfig.devtool = "eval";
     mConfig.debug = true;
