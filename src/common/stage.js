@@ -1,13 +1,13 @@
 import Phaser from 'phaser';
-import Guy from './guy.js';
-import Zombie from './zombie.js';
-import Explosion from './explosion.js';
-import Heart from './heart.js';
+import Guy from './../modules/guy.js';
+import Zombie from './../modules/zombie.js';
+import Explosion from './../modules/explosion.js';
+import Heart from './../modules/heart.js';
 import Utils from './utils.js';
-import Blood from './blood.js';
-import Bonus from './bonus.js';
+import Blood from './../modules/blood.js';
+import Bonus from './../modules/bonus.js';
 
-export default class BaseStage extends Phaser.Group {
+export default class Stage extends Phaser.Group {
   constructor(game, gameResolver, gameRejector, stageName) {
       super(game);
       this.resolver = gameResolver;

@@ -1,7 +1,7 @@
-import BasePlayer from './basePlayer.js';
+import Player from './../common/player.js';
 import Animations from '../config/animations.js';
 
-export default class Zombie extends BasePlayer {
+export default class Zombie extends Player {
   constructor(game, config) {
     super(game, config.x, config.y, config.spriteSheet, config.frameName);
     this.config = config;

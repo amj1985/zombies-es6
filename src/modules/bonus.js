@@ -1,4 +1,4 @@
-import Utils from './utils.js';
+import Utils from './../common/utils.js';
 
 export default class Bonus extends Phaser.Sprite {
   constructor(game, config, guy, hearts) {
@@ -32,7 +32,7 @@ export default class Bonus extends Phaser.Sprite {
           ._disable());
     }
     /**
-     * @function private function that removes the timer events from the object
+     * @function private function that removes the timer event from the object
      */
   _removeBonusEvents() {
     this.visible = false;

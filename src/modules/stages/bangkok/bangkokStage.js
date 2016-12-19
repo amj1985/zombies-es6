@@ -1,8 +1,8 @@
-import BaseStage from '../../../common/baseStage.js';
+import Stage from '../../../common/stage.js';
 import Config from './config.js';
 import Animations from '../../../config/animations.js';
 
-export default class BangkokStage extends BaseStage {
+export default class BangkokStage extends Stage {
   constructor(game, gameResolver, gameRejector, stageName) {
     super(game, gameResolver, gameRejector, stageName);
     this.config = Object.assign({}, new Config());
