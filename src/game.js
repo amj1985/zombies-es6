@@ -7,21 +7,20 @@ import SceneLoader from './common/states/sceneLoader.js';
 
 class Game extends Phaser.Game {
 
-    constructor() {
-        super(1920, 1080, Phaser.AUTO, 'content');
-        console.clear();
-        this.__initializeStates();
-    }
+  constructor() {
+    super(1920, 1080, Phaser.AUTO, 'content');
+    console.clear();
+    this.__initializeStates();
+  }
 
-    __initializeStates() {
-        return new Promise((resolve) => {
-            this.state.add('Boot', GameLoader, false);
-            this.state.add('Preload', AssetLoader, false);
-            this.state.add('Scene', SceneLoader, false);
-            this.state.start('Boot');
-            resolve();
-        });
-        return this;
-    }
+  __initializeStates() {
+    return new Promise((resolve) => {
+      this.state.add('Boot', GameLoader, false);
+      this.state.add('Preload', AssetLoader, false);
+      this.state.add('Scene', SceneLoader, false);
+      this.state.start('Boot');
+      resolve();
+    });
+  }
 }
 window.onload = () => new Game();

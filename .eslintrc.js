@@ -9,6 +9,7 @@ module.exports = {
     "forOf": true,
     "generators": true,
     "modules": false,
+    "module": true,
     "objectLiteralComputedProperties": true,
     "objectLiteralDuplicateProperties": false,
     "objectLiteralShorthandMethods": true,
@@ -26,7 +27,8 @@ module.exports = {
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true
   },
   "parser": "babel-eslint",
   "plugins": [
@@ -72,7 +74,10 @@ module.exports = {
     "consistent-return": 1,
     "curly": [1, "all"],
     "default-case": 0,
-    "dot-notation": [1, { "allowKeywords": true, "allowPattern": "" }],
+    "dot-notation": [1, {
+      "allowKeywords": true,
+      "allowPattern": ""
+    }],
     "dot-location": [1, "property"],
     "eqeqeq": 1,
     "guard-for-in": 0,
@@ -110,7 +115,10 @@ module.exports = {
     "no-throw-literal": 1,
     "no-unused-expressions": 0,
     "no-void": 0,
-    "no-warning-comments": [1, { "terms": ["todo", "tofix"], "location": "start" }],
+    "no-warning-comments": [1, {
+      "terms": ["todo", "tofix"],
+      "location": "start"
+    }],
     "no-with": 1,
     "radix": 1,
     "vars-on-top": 1,
@@ -129,7 +137,10 @@ module.exports = {
     "no-undef-init": 1,
     "no-undef": 1,
     "no-undefined": 1,
-    "no-unused-vars": [1, { "vars": "local", "args": "after-used" }],
+    "no-unused-vars": [1, {
+      "vars": "local",
+      "args": "after-used"
+    }],
     "no-use-before-define": 1,
 
     /* Node.js */
@@ -143,9 +154,16 @@ module.exports = {
 
     /* Stylistic Issues */
     "array-bracket-spacing": [1, "never"],
-    "brace-style": [1, "stroustrup", { "allowSingleLine": true }],
-    "camelcase": [1, { "properties": "always" }],
-    "comma-spacing": [1, { "before": false, "after": true }],
+    "brace-style": [1, "stroustrup", {
+      "allowSingleLine": true
+    }],
+    "camelcase": [1, {
+      "properties": "always"
+    }],
+    "comma-spacing": [1, {
+      "before": false,
+      "after": true
+    }],
     "comma-style": [1, "last"],
     "computed-property-spacing": 0,
     "consistent-this": 0,
@@ -153,7 +171,10 @@ module.exports = {
     "func-names": 1,
     "func-style": 0,
     "indent": [1, 2],
-    "key-spacing": [1, { "beforeColon": false, "afterColon": true }],
+    "key-spacing": [1, {
+      "beforeColon": false,
+      "afterColon": true
+    }],
     "linebreak-style": 0,
     "max-nested-callbacks": [0, 3],
     "new-cap": 0, // see Babel section
@@ -164,7 +185,9 @@ module.exports = {
     "no-inline-comments": 0,
     "no-lonely-if": 1,
     "no-mixed-spaces-and-tabs": 1,
-    "no-multiple-empty-lines": [1, { "max": 1 }],
+    "no-multiple-empty-lines": [1, {
+      "max": 1
+    }],
     "no-nested-ternary": 0,
     "no-new-object": 1,
     "no-spaced-func": 1,
@@ -178,7 +201,10 @@ module.exports = {
     "padded-blocks": [0, "never"],
     "quote-props": [0, "as-needed"],
     "quotes": [1, "single"],
-    "semi-spacing": [1, { "before": false, "after": true }],
+    "semi-spacing": [1, {
+      "before": false,
+      "after": true
+    }],
     "semi": [1, "always"],
     "sort-vars": 0,
     "space-after-keywords": 0,
