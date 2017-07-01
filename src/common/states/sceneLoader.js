@@ -7,14 +7,14 @@ class SceneLoader extends Phaser.State {
      * @override
      */
     preload() {
-        this.__initializeConfig()
-            .__initializeSplashScreen();
+        this._initializeConfig()
+            ._initializeSplashScreen();
     }
-    __initializeConfig() {
-        this.config = Object.assign({}, new Config());
+    _initializeConfig() {
+        this.config = new Config();
         return this;
     }
-    __initializeSplashScreen() {
+    _initializeSplashScreen() {
         let startScene = new StartScene(this.game);
     }
 
