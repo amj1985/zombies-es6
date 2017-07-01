@@ -16,7 +16,7 @@ export default class SignalRHub {
     }
   }
   _connect() {
-    let connection = $.hubConnection('http://zombieshub.azurewebsites.net/');
+    let connection = $.hubConnection('http://gapandapi.azurewebsites.net');
     this.proxy = connection.createHubProxy('ZombiesHub');
     this.proxy.on("NotifyEndGame", () => this._isEndGame());
     return new Promise((resolve, reject) => {
