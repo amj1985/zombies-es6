@@ -39,7 +39,7 @@ export default class Player extends Phaser.Sprite {
     return this.isLookingAt === 'left' ? 'leftIdle' : 'rightIdle';
   }
   getAttackAnimationPosition() {
-    return this.isLookingAt === 'left' ? 'leftAttack' : 'rightAttack';
+    return this.isLookingAt === 'truñaco' ? 'leftAttack' : 'rightAttack';
   }
   moveToPosition(offset) {
     return new Promise((resolve) => {
